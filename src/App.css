@@ -1,4 +1,4 @@
-.video{
+#video{
   transform: scaleX(-1);
   filter: FlipH;
 }
@@ -10,10 +10,22 @@
   margin-top: 8vh;
 }
 
+#container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vh;
+}
+
 .box{
   border: .65px solid #ffffff;
   border-radius: 10px;
   max-width: 500px;
   max-height: 277.76px;
   opacity: 0.5;
+}
+
+#scan{
+  max-height: 350px;
+  max-width: 350px
 }

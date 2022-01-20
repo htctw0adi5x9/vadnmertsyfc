@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useUserMedia } from './useUserMedia';
 import * as faceapi from 'face-api.js'
 import './App.css';
+import faceid from './images/faceid.png'
 
 const CAPTURE_OPTIONS = {
     audio: false,
@@ -24,7 +25,9 @@ function App() {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ])
+      ]).then(() => {
+        setFaces('Happy')
+      })
     }
     videoRef.current && loadModels()
   }, [])
@@ -53,7 +56,11 @@ function App() {
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>Look {faces}</div>
-      <video className='video' style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
+      <div style={{color: 'white', fontSize: 20}}>{}</div>
+      <video id='video' style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
+      <div id='container'>
+        <img id='scan' style={{height: '80vw', width: '80vw', opacity: .15}} src={faceid} alt="Logo" />
+      </div>
     </div>
   );
 }
