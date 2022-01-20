@@ -33,7 +33,9 @@ function App() {
 
       if(result){
         if(result.longBlink){
-          setFaces('Complete')
+          if(result.rate == 3){
+            setFaces('Complete')
+          }
         }
       }
       raf = requestAnimationFrame(predict);
