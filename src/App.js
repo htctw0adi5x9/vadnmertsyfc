@@ -34,19 +34,19 @@ function App() {
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      while(counter > 0) {
-        if(result.blink) {
+      if (result.blink) {
+        if (counter != 0) {
           let decrementCounter = () => setCounter(counter - 1)
           decrementCounter()
-        }
-      }if(counter == 0){
-        //take picture
-        //send to next screen
-        setFaces('Done')
-      } 
+        }else{
+          setFaces('Done')
+        } 
+      }
       raf = requestAnimationFrame(predict);
     };
-    predict();
+    while(counter > 0){
+      predict();
+    }
   };
 
   init();
