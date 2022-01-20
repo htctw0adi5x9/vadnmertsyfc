@@ -9,11 +9,11 @@ import faceid from './images/faceid.png'
 //     video: { facingMode: "user" },
 // };
 
-function App() {
+function BlinkDet() {
   const videoRef = useRef();
   //const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Place Face in Box and Blink')
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState()
 
   // if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
   //   videoRef.current.srcObject = mediaStream;
@@ -25,19 +25,15 @@ function App() {
 
   var raf
   const init = async () => {
-    if(counter == 0){
-      await blink.loadModel();
-      await blink.setUpCamera(videoRef.current)
-    }
+    await blink.loadModel();
+    await blink.setUpCamera(videoRef.current)
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
       if(result){
+        //save img
         if(result.longBlink){
-          const incrementCounter = () => setCounter(counter + 1)
-          incrementCounter()
-          //save img?
           setFaces('Complete')
           //send to next page
         }
@@ -59,4 +55,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default BlinkDet;
