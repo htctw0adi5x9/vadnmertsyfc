@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useUserMedia } from './useUserMedia';
 import * as faceapi from 'face-api.js'
+import './App.css';
 
 const CAPTURE_OPTIONS = {
     audio: false,
