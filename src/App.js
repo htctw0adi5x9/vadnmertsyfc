@@ -35,7 +35,7 @@ function App() {
       let result = await blink.getBlinkPrediction()
 
       if (result.blink) {
-        if (counter != 0) {
+        if (counter > 0) {
           let decrementCounter = () => setCounter(counter - 1)
           decrementCounter()
         }else{
@@ -44,9 +44,7 @@ function App() {
       }
       raf = requestAnimationFrame(predict);
     };
-    while(counter > 0){
-      predict();
-    }
+    predict();
   };
 
   init();
