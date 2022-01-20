@@ -13,6 +13,7 @@ function App() {
   const videoRef = useRef();
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Place Face in Frame')
+  const [counter, setCounter] = useState(5)
 
   if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.srcObject = mediaStream;
@@ -22,21 +23,21 @@ function App() {
     videoRef.current.play()
   }
 
-  var num = 5
   var raf
   const init = async () => {
     await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
     setTimeout(() => {
-      setFaces(`Blink ${num} times`)
+      setFaces(`Blink ${counter} times`)
     }, 2000)
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
       if (result.blink) {
-        if (num != 0) {
-          const num = num - 1
+        if (counter != 0) {
+          let decrementCounter = () => setCounter(counter - 1)
+          decrementCounter()
         }else{
           setFaces('Done')
         } 
