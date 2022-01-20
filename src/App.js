@@ -27,20 +27,17 @@ function App() {
     setInterval(() => {
       setFaces('Blink 5 times')
     }, 2000)
-    await blink.setUpCamera(videoRef);
-    const predict = async () => {
-      const blinkPrediction = await blink.getBlinkPrediction();
-      console.log('Blink: ', blinkPrediction);
-      if (blinkPrediction.blink) {
-        console.log('blinked')
-      }
-      let raf = requestAnimationFrame(predict);
-    }
+    await blink.setUpCamera(videoRef.current);
   };
 
-  useEffect(() => {
-    init()
-  })
+  const predict = async () => {
+    const blinkPrediction = await blink.getBlinkPrediction();
+    console.log('Blink: ', blinkPrediction);
+    if (blinkPrediction.blink) {
+      console.log('blinked')
+    }
+    let raf = requestAnimationFrame(predict);
+  }
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
