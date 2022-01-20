@@ -12,7 +12,7 @@ import faceid from './images/faceid.png'
 function App() {
   const videoRef = useRef();
   //const mediaStream = useUserMedia(CAPTURE_OPTIONS);
-  const [faces, setFaces] = useState('Blink 5 Times')
+  const [faces, setFaces] = useState('Blink')
   const [counter, setCounter] = useState()
 
   // if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
@@ -31,7 +31,7 @@ function App() {
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      if (result.rate = 5) {
+      if (result.blink) {
         setFaces('Complete')
       }
       raf = requestAnimationFrame(predict);
