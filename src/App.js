@@ -22,22 +22,24 @@ function App() {
     videoRef.current.play()
   }
 
-  var raf;
+  var num = 5
+  var raf
   const init = async () => {
     await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
     setTimeout(() => {
-      setFaces(`Blink 5 times`)
+      setFaces(`Blink ${num} times`)
     }, 2000)
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
       if (result.blink) {
-        console.log('blinked')
-        if (result.rate) {
-          //
-        }
+        if (num != 0) {
+          const num = num - 1
+        }else{
+          setFaces('Done')
+        } 
       }
       raf = requestAnimationFrame(predict);
     };
