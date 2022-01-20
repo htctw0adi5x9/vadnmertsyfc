@@ -28,19 +28,14 @@ function App() {
     await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
     setTimeout(() => {
-      setFaces(`Blink ${counter} times`)
+      setFaces(`Blink 5 times`)
     }, 2000)
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      if (result.blink) {
-        if (counter > 0) {
-          let decrementCounter = () => setCounter(counter - 1)
-          decrementCounter()
-        }else{
-          setFaces('Done')
-        } 
+      if (result.rate = 5) {
+          setFaces('Complete')
       }
       raf = requestAnimationFrame(predict);
     };
