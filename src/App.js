@@ -19,7 +19,7 @@ function App() {
   }
 
   function handleCanPlay() {
-    videoRef.current.play().then(() => {init()})
+    videoRef.current.play()
   }
 
   const init = async () => {
@@ -27,7 +27,7 @@ function App() {
     setInterval(() => {
       setFaces('Blink 5 times')
     }, 2000)
-    await blink.setUpCamera(videoRef.current);
+    await blink.setUpCamera(videoRef);
     const predict = async () => {
       const blinkPrediction = await blink.getBlinkPrediction();
       console.log('Blink: ', blinkPrediction);
@@ -37,6 +37,10 @@ function App() {
       let raf = requestAnimationFrame(predict);
     }
   };
+
+  useEffect(() => {
+    init()
+  })
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
