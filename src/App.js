@@ -20,7 +20,7 @@ function App() {
 
   const handleVideo = async () => {
     const detections = await 
-      faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+      faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceExpressions()
 
     console.log(detections)
