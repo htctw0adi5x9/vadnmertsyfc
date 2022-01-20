@@ -26,7 +26,7 @@ function App() {
   var raf
   const init = async () => {
     await blink.loadModel();
-    await blink.setUpCamera(videoRef.current);
+    await blink.setUpCamera(videoRef);
     setTimeout(() => {
       setFaces(`Blink ${counter} times`)
     }, 2000)
@@ -39,6 +39,8 @@ function App() {
           let decrementCounter = () => setCounter(counter - 1)
           decrementCounter()
         }else{
+          //take picture
+          //send to next screen
           setFaces('Done')
         } 
       }
