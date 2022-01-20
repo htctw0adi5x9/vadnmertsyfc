@@ -54,7 +54,7 @@ function App() {
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>{faces}</div>
-      <video id='video' style={{position: 'fixed', height: '100%', width: '100%'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
+      <video id='video' style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
       <div id='container'>
         <img id='scan' style={{height: '80vw', width: '80vw', opacity: .15}} src={faceid} alt="Logo" />
       </div>
