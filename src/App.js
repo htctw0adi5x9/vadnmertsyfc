@@ -22,22 +22,29 @@ function App() {
     videoRef.current.play()
   }
 
+  var raf;
   const init = async () => {
-    await blink.loadModel()
-    setInterval(() => {
-      setFaces('Blink 5 times')
-    }, 2000)
+    await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
+    setTimeout(() => {
+      setFaces(`Blink 5 times`)
+    }, 2000)
+
+    const predict = async () => {
+      let result = await blink.getBlinkPrediction()
+
+      if (result.blink) {
+        console.log('blinked')
+        if (result.rate) {
+          //
+        }
+      }
+      raf = requestAnimationFrame(predict);
+    };
+    predict();
   };
 
-  const predict = async () => {
-    const blinkPrediction = await blink.getBlinkPrediction();
-    console.log('Blink: ', blinkPrediction);
-    if (blinkPrediction.blink) {
-      console.log('blinked')
-    }
-    let raf = requestAnimationFrame(predict);
-  }
+  init();
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
