@@ -14,6 +14,10 @@ function App() {
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Surprised') // Happy, Neutral
 
+  if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
+    videoRef.current.srcObject = mediaStream;
+  }
+
   useEffect(() => {
     const loadModels = () => {
       Promise.all([
@@ -21,11 +25,7 @@ function App() {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ]).then( () => {
-        if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
-          videoRef.current.srcObject = mediaStream;
-        }
-      })
+      ])
     }
     videoRef.current && loadModels()
   }, [])
@@ -34,7 +34,7 @@ function App() {
     videoRef.current.play();
   }
 
-  videoRef.addEventListener('play', () => {
+  /*videoRef.addEventListener('play', () => {
     setInterval(async() => {
       const detections = await faceapi.detectAllFaces(videoRef, 
       new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
@@ -49,7 +49,7 @@ function App() {
         }
       }
     }, 100);
-  })
+  })*/
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
