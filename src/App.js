@@ -26,7 +26,7 @@ function App() {
   var raf
   const init = async () => {
     await blink.loadModel();
-    await blink.setUpCamera(videoRef.current.srcObject);
+    await blink.setUpCamera(videoRef.current);
     setTimeout(() => {
       setFaces(`Blink ${counter} times`)
     }, 2000)
@@ -34,16 +34,16 @@ function App() {
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      if (result.blink) {
-        if (counter != 0) {
+      while(counter != 0) {
+        if(result.blink) {
           let decrementCounter = () => setCounter(counter - 1)
           decrementCounter()
-        }else{
-          //take picture
-          //send to next screen
-          setFaces('Done')
-        } 
-      }
+        }
+      }if(counter == 0){
+        //take picture
+        //send to next screen
+        setFaces('Done')
+      } 
       raf = requestAnimationFrame(predict);
     };
     predict();
