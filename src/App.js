@@ -31,7 +31,7 @@ function App() {
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      if (result.rate == 5) {
+      if (result.rate = 5) {
         setFaces('Complete')
       }
       raf = requestAnimationFrame(predict);
