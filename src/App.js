@@ -33,12 +33,8 @@ function App() {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ]).then(() => {
-        handleVideo()
-        setTimeout(() => {
-          setFaces('Look Surprised')
-        }, 2000)
-      })
+      ]).then(handleVideo)
+      .catch((e) => console.log(e))
     }
     videoRef.current && loadModels()
   }, [])
@@ -48,7 +44,9 @@ function App() {
   }
 
   /*
-        
+       setTimeout(() => {
+          setFaces('Look Surprised')
+        }, 2000) 
   */
 
   return (
