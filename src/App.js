@@ -13,7 +13,7 @@ function App() {
   const videoRef = useRef();
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Place Face in Frame')
-  const [counter, setCounter] = useState(5)
+  const [counter, setCounter] = useState(3)
 
   if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.srcObject = mediaStream;
@@ -28,16 +28,19 @@ function App() {
     await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
     setTimeout(() => {
-      setFaces(`Blink 5 times`)
+      setFaces(`Blink ${counter} times`)
     }, 2000)
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      if (result) {
-        if (result.rate = 5) {
-          setFaces('Complete')
-        }
+      if (result.blink) {
+        if (counter > 0) {
+          let decrementCounter = () => setCounter(counter - 1)
+          decrementCounter()
+        }else if(counter == 0){
+          setFaces('Done')
+        } 
       }
       raf = requestAnimationFrame(predict);
     };
