@@ -19,7 +19,7 @@ function App() {
   }
 
   function handleCanPlay() {
-    videoRef.current.play();
+    videoRef.current.play().then(() => {init()})
   }
 
   const init = async () => {
@@ -37,10 +37,6 @@ function App() {
       let raf = requestAnimationFrame(predict);
     }
   };
-
-  useEffect(() => {
-    init()
-  })
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
