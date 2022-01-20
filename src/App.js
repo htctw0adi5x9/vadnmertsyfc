@@ -36,6 +36,7 @@ function App() {
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
       ]).then(() => {
         handleVideo()
+        console.log('LOG')
         setTimeout(() => {
           setFaces('Look Surprised')
         }, 2000)
