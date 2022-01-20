@@ -26,7 +26,7 @@ function App() {
   var raf
   const init = async () => {
     await blink.loadModel();
-    await blink.setUpCamera(videoRef);
+    await blink.setUpCamera(videoRef.current.srcObject);
     setTimeout(() => {
       setFaces(`Blink ${counter} times`)
     }, 2000)
