@@ -32,7 +32,7 @@ function App() {
       let result = await blink.getBlinkPrediction()
 
       if(result){
-        if (result.rate == 5) {
+        if (result.rate = 5) {
           setFaces('Complete')
         }
       }
