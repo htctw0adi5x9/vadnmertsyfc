@@ -4,20 +4,20 @@ import blink from './blink'
 import './App.css';
 import faceid from './images/faceid.png'
 
-const CAPTURE_OPTIONS = {
-    audio: false,
-    video: { facingMode: "user" },
-};
+// const CAPTURE_OPTIONS = {
+//     audio: false,
+//     video: { facingMode: "user" },
+// };
 
 function App() {
   const videoRef = useRef();
-  const mediaStream = useUserMedia(CAPTURE_OPTIONS);
+  //const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Place Face in Frame')
   const [counter, setCounter] = useState(3)
 
-  if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
-    videoRef.current.srcObject = mediaStream;
-  }
+  // if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
+  //   videoRef.current.srcObject = mediaStream;
+  // }
 
   function handleCanPlay() {
     videoRef.current.play()
@@ -25,10 +25,9 @@ function App() {
 
   var raf
   const init = async () => {
-    if(counter == 3){
-      await blink.loadModel();
-      await blink.setUpCamera(videoRef.current);
-    }else if(counter > 0){
+    await blink.loadModel();
+    await blink.setUpCamera(videoRef.current);
+    if(counter > 0){
       setTimeout(() => {
         setFaces(`Blink ${counter} times`)
       }, 2000)
