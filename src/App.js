@@ -34,12 +34,7 @@ function App() {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ]).then(() => {
-        handleVideo()
-        setTimeout(() => {
-          setFaces('Look Surprised')
-        }, 2000)
-      })
+      ]).then(handleVideo)
     }
     videoRef.current && loadModels()
   }, [])
@@ -48,27 +43,16 @@ function App() {
     videoRef.current.play();
   }
 
-  /*videoRef.addEventListener('play', () => {
-    setInterval(async() => {
-      const detections = await faceapi.detectAllFaces(videoRef, 
-      new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
-      .withFaceExpressions()
-      if(detections.expressions.surprised > .95){
-        setFaces('Happy')
-        if(detections.expressions.happy > .95){
-          setFaces('Neutral')
-          if(detections.expressions.neutral > .95){
-            setFaces('Done')
-          }
-        }
-      }
-    }, 100);
-  })*/
+  /*
+        setTimeout(() => {
+          setFaces('Look Surprised')
+        }, 2000)
+  */
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>{faces}</div>
-      <div style={{color: 'white', fontSize: 18}}>{text}</div>
+      <div style={{color: 'white', fontSize: 18}}>{'Detections:' + text}</div>
       <video id='video' style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
       <div id='container'>
         <img id='scan' style={{height: '80vw', width: '80vw', opacity: .15}} src={faceid} alt="Logo" />
