@@ -13,7 +13,7 @@ function App() {
   const videoRef = useRef();
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [faces, setFaces] = useState('Place Face in Frame') // Happy, Neutral
-  const [text, setText] = useState('')
+  const [text, setText] = useState([])
 
   if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.srcObject = mediaStream;
