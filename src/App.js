@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useUserMedia } from './useUserMedia';
-import * as faceapi from 'face-api.js'
+import blink from './blink'
 import './App.css';
 import faceid from './images/faceid.png'
 
@@ -12,42 +12,35 @@ const CAPTURE_OPTIONS = {
 function App() {
   const videoRef = useRef();
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
-  const [faces, setFaces] = useState('Place Face in Frame') // Happy, Neutral
+  const [faces, setFaces] = useState('Place Face in Frame')
 
   if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
     videoRef.current.srcObject = mediaStream;
   }
 
-  const handleVideo = async () => {
-    const detections = await 
-      faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-      .withFaceExpressions()
-
-    console.log(detections)
-  }
-
-  useEffect(() => {
-    const loadModels = () => {
-      Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-        faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ]).then(handleVideo)
-      .catch((e) => console.log(e))
-    }
-    videoRef.current && loadModels()
-  }, [])
-
   function handleCanPlay() {
     videoRef.current.play();
   }
 
-  /*
-       setTimeout(() => {
-          setFaces('Look Surprised')
-        }, 2000) 
-  */
+  const init = async () => {
+    await blink.loadModel()
+    setInterval(() => {
+      setFaces('Blink 5 times')
+    }, 2000)
+    await blink.setUpCamera(videoRef.current);
+    const predict = async () => {
+      const blinkPrediction = await blink.getBlinkPrediction();
+      console.log('Blink: ', blinkPrediction);
+      if (blinkPrediction.blink) {
+        console.log('blinked')
+      }
+      let raf = requestAnimationFrame(predict);
+    }
+  };
+
+  useEffect(() => {
+    init()
+  })
 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
