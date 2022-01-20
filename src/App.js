@@ -34,7 +34,7 @@ function App() {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models')
-      ]).then(handleVideo)
+      ]).then(handleVideo())
     }
     videoRef.current && loadModels()
   }, [])
