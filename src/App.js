@@ -34,7 +34,7 @@ function App() {
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
-      while(counter != 0) {
+      while(counter > 0) {
         if(result.blink) {
           let decrementCounter = () => setCounter(counter - 1)
           decrementCounter()
