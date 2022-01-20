@@ -5,8 +5,6 @@ import * as faceapi from 'face-api.js'
 const CAPTURE_OPTIONS = {
     audio: false,
     video: { facingMode: "user" },
-    height: '90vh',
-    width: '100vw',
 };
 
 function App() {
