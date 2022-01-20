@@ -25,11 +25,16 @@ function App() {
 
   var raf
   const init = async () => {
-    await blink.loadModel();
-    await blink.setUpCamera(videoRef.current);
-    setTimeout(() => {
-      setFaces(`Blink ${counter} times`)
-    }, 2000)
+    if(counter == 3){
+      await blink.loadModel();
+      await blink.setUpCamera(videoRef.current);
+    }else if(counter > 0){
+      setTimeout(() => {
+        setFaces(`Blink ${counter} times`)
+      }, 2000)
+    }else if(counter == 0){
+      setFaces('Done')
+    }
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
