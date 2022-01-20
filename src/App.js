@@ -27,13 +27,6 @@ function App() {
   const init = async () => {
     await blink.loadModel();
     await blink.setUpCamera(videoRef.current);
-    if(counter > 0){
-      setTimeout(() => {
-        setFaces(`Blink ${counter} times`)
-      }, 2000)
-    }else if(counter == 0){
-      setFaces('Done')
-    }
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
