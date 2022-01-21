@@ -85,8 +85,8 @@ function App({ onCapture, onClear }) {
         <div style={{position: 'absolute', bottom: 70, left: '2.5vw'}}>
           <Canvas
             ref={canvasRef}
-            width={w / 4}
-            height={h / 4}
+            width={w}
+            height={h}
           />
         </div>
       </div>
