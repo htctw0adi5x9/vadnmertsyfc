@@ -12,8 +12,8 @@ import faceid from './images/faceid.png'
 function BlinkDet() {
   const videoRef = useRef();
   //const mediaStream = useUserMedia(CAPTURE_OPTIONS);
-  const [faces, setFaces] = useState('Place Face in Box and Blink')
-  const [counter, setCounter] = useState()
+  const [faces, setFaces] = useState('Center Face in Box and Blink')
+  const [counter, setCounter] = useState(0)
 
   // if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
   //   videoRef.current.srcObject = mediaStream;
@@ -23,17 +23,30 @@ function BlinkDet() {
     videoRef.current.play()
   }
 
+  function handleCapture() {
+    const width = window.innerWidth
+    const height = window.innerHeight
+    let video = videoRef.current
+    const dataURI = video.toDataURL('image/jpeg')
+    img2 = new Image()
+    img2.src = dataURI
+  }
+
   var raf
   const init = async () => {
-    await blink.loadModel();
-    await blink.setUpCamera(videoRef.current)
+    if(counter == 0){
+      await blink.loadModel();
+      await blink.setUpCamera(videoRef.current)
+    }
 
     const predict = async () => {
       let result = await blink.getBlinkPrediction()
 
       if(result){
-        //save img
         if(result.longBlink){
+          const incrementCounter = () => setCounter(counter + 1)
+          incrementCounter()
+          handleCapture()
           setFaces('Complete')
           //send to next page
         }

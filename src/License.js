@@ -30,7 +30,7 @@ function License({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    var scale = window.devicePixelRatio
+    var aR = w / h
     const width = w / 4
     const height = (h  - 53) / 4
     let video = videoRef.current
@@ -41,8 +41,9 @@ function License({ onCapture, onClear }) {
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(video, 0, 0, width, height);
-    canvas.toBlob(blob => onCapture(blob), "image/jpeg", 1)
-    //data = canvas.toDataURL('image/jpeg')
+    const dataURI = video.toDataURL('image/jpeg')
+    const img1 = new Image()
+    img1.src = dataURI
   }
 
   useEffect(() => {
@@ -66,7 +67,6 @@ function License({ onCapture, onClear }) {
   }*/
 
   const handleNext = () => {
-    //save img to img1
     //send to next screen
   }
 
