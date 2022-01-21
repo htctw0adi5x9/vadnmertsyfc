@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useUserMedia } from './useUserMedia';
 import styled, { css, keyframes } from 'styled-components';
 import "./App.css";
-import downsize from './downsize'
 
 const CAPTURE_OPTIONS = {
     audio: false,
@@ -10,14 +9,15 @@ const CAPTURE_OPTIONS = {
 };
 
 function App({ onCapture, onClear }) {
+  const dpi = window.devicePixelRatio
+  const w = window.innerWidth
+  const h = window.innerHeight
+
   const Canvas = styled.canvas`
   `;
 
   const canvasRef = useRef();
   const videoRef = useRef();
-  const box = document.querySelector('.box')
-  const w = window.innerWidth
-  const h = window.innerHeight
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
   const [hasImage, setHasImage] = useState(false)
 
@@ -30,9 +30,9 @@ function App({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    const aR = w / h
+    var aR = w / h
     const width = w / 4
-    const height = (h / aR) / 4
+    const height = (h  - 53) / 4
     let video = videoRef.current
     let canvas = canvasRef.current
     let ctx = canvas.getContext("2d");
@@ -40,7 +40,6 @@ function App({ onCapture, onClear }) {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
-    var cnvs = downsize.downScaleImage(video, 0.25)
     ctx.drawImage(video, 0, 0, width, height);
     const dataURI = video.toDataURL('image/jpeg')
     const img1 = new Image()
@@ -71,10 +70,6 @@ function App({ onCapture, onClear }) {
     //send to next screen
   }
 
-  useEffect(() => {
-    console.log('width:' + videoRef.width)
-  })
- 
   return (
     <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>License Photo</div>
@@ -88,7 +83,7 @@ function App({ onCapture, onClear }) {
           <Canvas
             ref={canvasRef}
             width={w / 4}
-            height={h / 4}
+            height={(h - 53) / 4}
           />
         </div>
       </div>
