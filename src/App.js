@@ -14,6 +14,7 @@ function App({ onCapture, onClear }) {
 
   const canvasRef = useRef();
   const videoRef = useRef();
+  const box = document.querySelector('.box')
   const w = window.innerWidth
   const h = window.innerHeight
   const mediaStream = useUserMedia(CAPTURE_OPTIONS);
@@ -85,7 +86,7 @@ function App({ onCapture, onClear }) {
           <Canvas
             ref={canvasRef}
             width={w / 4}
-            height={(h - 53) / 4}
+            height={h / 4}
           />
         </div>
       </div>
