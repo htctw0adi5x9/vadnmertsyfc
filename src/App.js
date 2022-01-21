@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useUserMedia } from './useUserMedia';
 import styled, { css, keyframes } from 'styled-components';
 import "./App.css";
+import downsize from './downsize'
 
 const CAPTURE_OPTIONS = {
     audio: false,
@@ -39,6 +40,7 @@ function App({ onCapture, onClear }) {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
+    var cnvs = downsize.downScaleImage(video, 0.25)
     ctx.drawImage(video, 0, 0, width, height);
     const dataURI = video.toDataURL('image/jpeg')
     const img1 = new Image()
@@ -85,8 +87,8 @@ function App({ onCapture, onClear }) {
         <div style={{position: 'absolute', bottom: 70, left: '2.5vw'}}>
           <Canvas
             ref={canvasRef}
-            width={w}
-            height={h}
+            width={w / 4}
+            height={h / 4}
           />
         </div>
       </div>
