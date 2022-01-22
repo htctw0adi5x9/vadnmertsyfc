@@ -32,8 +32,8 @@ function License({ onCapture, onClear }) {
   function handleCapture() {
     const video = videoRef.current //document.querySelector("video")
     let canvas = canvasRef.current
-    const width = video.videoWidth * dpi
-    const height = video.videoHeight * dpi
+    const width = video.videoWidth
+    const height = video.videoHeight
     let ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
     const dataURI = video.toDataURL('image/jpeg')
