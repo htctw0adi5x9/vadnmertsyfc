@@ -17,6 +17,12 @@
   margin-top: 16vh;
 }
 
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .box{
   border: .65px solid #ffffff;
   border-radius: 10px;

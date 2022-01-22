@@ -8,11 +8,10 @@ const CAPTURE_OPTIONS = {
     video: { facingMode: "environment" },
 };
 
-function App({ onCapture, onClear }) {
+function License({ onCapture, onClear }) {
   const dpi = window.devicePixelRatio
   const w = window.innerWidth
   const h = window.innerHeight
-  const aR = window.devicePixelRatio
 
   const Canvas = styled.canvas`
   `;
@@ -31,10 +30,10 @@ function App({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    const width = (w / 4) * aR
-    const height = (h / 4) * aR
-    let video = videoRef.current
+    let video = document.querySelector("video")
     let canvas = canvasRef.current
+    const width = video.videoWidth
+    const height = video.videoHeight
     let ctx = canvas.getContext("2d");
     ctx.mozImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
@@ -79,12 +78,11 @@ function App({ onCapture, onClear }) {
         <div style={{position: 'absolute', height: '40px', borderRadius: 5, right: '2.5vw', bottom: 63, display: 'flex', flexDirection: 'row'}}>
           <div onClick={handleNext} style={{textAlign: 'center', color: 'white', marginTop: '6px', fontSize: 14, marginLeft: 40}}>{hasImage ? 'Next' : null}</div>
         </div>
-        <div style={{width: w / 4, height: h / 4, position: 'absolute', bottom: 70, left: '2.5vw'}}>
+        <div style={{position: 'absolute', bottom: 70, left: '2.5vw'}}>
           <Canvas
             ref={canvasRef}
             width={w / 4}
-            height={h / 4}
-            style={{objectFit:'contain'}}
+            height={(h - 53) / 4}
           />
         </div>
       </div>
@@ -94,4 +92,4 @@ function App({ onCapture, onClear }) {
     </div>
   );
 }
-export default App;
+export default License;
