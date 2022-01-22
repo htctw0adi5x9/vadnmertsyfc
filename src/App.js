@@ -79,7 +79,7 @@ function License({ onCapture, onClear }) {
             ref={canvasRef}
             width={w / 4}
             height={h / 4}
-            style={{objectFit:'contain'}}
+            style={{objectFit:'cover'}}
           />
         </div>
       </div>
