@@ -30,7 +30,7 @@ function License({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    const video = document.querySelector("video")
+    const video = videoRef.current //document.querySelector("video")
     let canvas = canvasRef.current
     const width = video.videoWidth * dpi
     const height = video.videoHeight * dpi
