@@ -32,8 +32,8 @@ function License({ onCapture, onClear }) {
   function handleCapture() {
     const video = videoRef.current
     let canvas = canvasRef.current
-    const width = video.videoWidth / 4
-    const height = video.videoHeight / 4
+    const width = (video.videoWidth / 4) * dpi
+    const height = (video.videoHeight / 4) * dpi
     let ctx = canvas.getContext("2d");
     // ctx.mozImageSmoothingEnabled = false;
     // ctx.webkitImageSmoothingEnabled = false;
