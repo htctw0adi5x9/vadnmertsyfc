@@ -32,9 +32,9 @@ function App({ onCapture, onClear }) {
   function handleCapture() {
     const video = videoRef.current
     let canvas = canvasRef.current
-    const width = (video.videoWidth / 4) * dpi
-    const height = (video.videoHeight / 4) * dpi
-    let ctx = canvas.getContext("2d").scale(dpi, dpi)
+    const width = (video.videoWidth / 4)
+    const height = (video.videoHeight / 4)
+    let ctx = canvas.getContext("2d");
     // ctx.mozImageSmoothingEnabled = false;
     // ctx.webkitImageSmoothingEnabled = false;
     // ctx.msImageSmoothingEnabled = false;
@@ -83,7 +83,7 @@ function App({ onCapture, onClear }) {
             ref={canvasRef}
             width={w / 4}
             height={h / 4}
-            style={{objectFit:'cover'}}
+            style={{objectFit:'cover', imageRendering: 'pixelated'}}
           />
         </div>
       </div>
