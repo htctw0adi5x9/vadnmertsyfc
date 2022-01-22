@@ -66,9 +66,9 @@ function License({ onCapture, onClear }) {
   }
 
   return (
-    <div style={{height: '100vh', width: '100vw', backgroundColor: 'black'}}>
+    <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>License Photo</div>
-      <video style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'contain'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
+      <video style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
       <div>
         <button id="button" style={{textAlign: 'center', color: 'white', fontSize: 20, height: '50px', width: '95vw', backgroundColor: '#000000', borderRadius: 5, position: 'absolute', marginLeft: '2.5vw', marginRight: '2.5vw', bottom: 10,  borderColor: 'black'}}>{hasImage ? 'Recapture' : 'Capture'}</button>
         <div style={{position: 'absolute', height: '40px', borderRadius: 5, right: '2.5vw', bottom: 63, display: 'flex', flexDirection: 'row'}}>
