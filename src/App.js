@@ -10,8 +10,8 @@ const CAPTURE_OPTIONS = {
 
 function License({ onCapture, onClear }) {
   const dpi = window.devicePixelRatio
-  const w = window.innerWidth
-  const h = window.innerHeight
+  const w = window.innerWidth / 1
+  const h = window.innerHeight - 53
 
   const Canvas = styled.canvas`
   `;
@@ -30,10 +30,10 @@ function License({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    let video = document.querySelector("video")
+    const video = document.querySelector("video")
     let canvas = canvasRef.current
-    const width = video.videoWidth
-    const height = video.videoHeight
+    const width = video.videoWidth * dpi
+    const height = video.videoHeight * dpi
     let ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
     const dataURI = video.toDataURL('image/jpeg')
@@ -66,9 +66,9 @@ function License({ onCapture, onClear }) {
   }
 
   return (
-    <div style={{height: '100%', width: '100%', backgroundColor: 'black'}}>
+    <div style={{height: '100vh', width: '100vw', backgroundColor: 'black'}}>
       <div style={{color: 'white', fontSize: 20, textAlign: 'center', padding: 15}}>License Photo</div>
-      <video style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'cover'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
+      <video style={{position: 'fixed', height: '100%', width: '100%', objectFit: 'contain'}} ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted />
       <div>
         <button id="button" style={{textAlign: 'center', color: 'white', fontSize: 20, height: '50px', width: '95vw', backgroundColor: '#000000', borderRadius: 5, position: 'absolute', marginLeft: '2.5vw', marginRight: '2.5vw', bottom: 10,  borderColor: 'black'}}>{hasImage ? 'Recapture' : 'Capture'}</button>
         <div style={{position: 'absolute', height: '40px', borderRadius: 5, right: '2.5vw', bottom: 63, display: 'flex', flexDirection: 'row'}}>
@@ -78,7 +78,8 @@ function License({ onCapture, onClear }) {
           <Canvas
             ref={canvasRef}
             width={w / 4}
-            height={(h - 53) / 4}
+            height={h / 4}
+            style={{objectFit:'contain'}}
           />
         </div>
       </div>
