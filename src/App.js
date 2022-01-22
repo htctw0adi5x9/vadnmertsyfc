@@ -8,7 +8,7 @@ const CAPTURE_OPTIONS = {
     video: { facingMode: "environment" },
 };
 
-function License({ onCapture, onClear }) {
+function App({ onCapture, onClear }) {
   const dpi = window.devicePixelRatio
   const w = window.innerWidth / 1
   const h = window.innerHeight - 53
@@ -34,7 +34,7 @@ function License({ onCapture, onClear }) {
     let canvas = canvasRef.current
     const width = (video.videoWidth / 4) * dpi
     const height = (video.videoHeight / 4) * dpi
-    let ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext("2d").scale(dpi, dpi)
     // ctx.mozImageSmoothingEnabled = false;
     // ctx.webkitImageSmoothingEnabled = false;
     // ctx.msImageSmoothingEnabled = false;
@@ -93,4 +93,4 @@ function License({ onCapture, onClear }) {
     </div>
   );
 }
-export default License;
+export default App;
