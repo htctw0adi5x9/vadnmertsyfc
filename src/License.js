@@ -10,8 +10,8 @@ const CAPTURE_OPTIONS = {
 
 function License({ onCapture, onClear }) {
   const dpi = window.devicePixelRatio
-  const w = window.innerWidth
-  const h = window.innerHeight
+  const w = window.innerWidth / 1
+  const h = window.innerHeight - 53
 
   const Canvas = styled.canvas`
   `;
@@ -30,16 +30,15 @@ function License({ onCapture, onClear }) {
   }
 
   function handleCapture() {
-    var aR = w / h
-    const width = w / 4
-    const height = (h  - 53) / 4
-    let video = videoRef.current
+    const video = videoRef.current
     let canvas = canvasRef.current
+    const width = (video.videoWidth / 4)
+    const height = (video.videoHeight / 4)
     let ctx = canvas.getContext("2d");
-    ctx.mozImageSmoothingEnabled = false;
-    ctx.webkitImageSmoothingEnabled = false;
-    ctx.msImageSmoothingEnabled = false;
-    ctx.imageSmoothingEnabled = false;
+    // ctx.mozImageSmoothingEnabled = false;
+    // ctx.webkitImageSmoothingEnabled = false;
+    // ctx.msImageSmoothingEnabled = false;
+    // ctx.imageSmoothingEnabled = false;
     ctx.drawImage(video, 0, 0, width, height);
     const dataURI = video.toDataURL('image/jpeg')
     const img1 = new Image()
@@ -82,8 +81,9 @@ function License({ onCapture, onClear }) {
         <div style={{position: 'absolute', bottom: 70, left: '2.5vw'}}>
           <Canvas
             ref={canvasRef}
-            width={w / 4}
-            height={(h - 53) / 4}
+            width={(w / 4) + 15}
+            height={h / 4}
+            style={{objectFit:'cover'}}
           />
         </div>
       </div>

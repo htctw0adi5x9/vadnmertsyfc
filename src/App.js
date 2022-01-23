@@ -9,7 +9,7 @@ const CAPTURE_OPTIONS = {
 };
 
 function App({ onCapture, onClear }) {
-  const dpi = window.devicePixelRatio
+  const dpi = window.devicePixelRatio || 1
   const w = window.innerWidth / 1
   const h = window.innerHeight - 53
 
@@ -31,15 +31,17 @@ function App({ onCapture, onClear }) {
 
   function handleCapture() {
     const video = videoRef.current
-    let canvas = canvasRef.current
-    const width = (video.videoWidth / 4)
-    const height = (video.videoHeight / 4)
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const width = rect.width * dpi
+    const height = rect.height * dpi
     let ctx = canvas.getContext("2d");
     // ctx.mozImageSmoothingEnabled = false;
     // ctx.webkitImageSmoothingEnabled = false;
     // ctx.msImageSmoothingEnabled = false;
     // ctx.imageSmoothingEnabled = false;
     ctx.drawImage(video, 0, 0, width, height);
+    ctx.scale(dpi, dpi)
     const dataURI = video.toDataURL('image/jpeg')
     const img1 = new Image()
     img1.src = dataURI
